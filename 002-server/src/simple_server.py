@@ -1,11 +1,15 @@
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+# stackoverflow.com/questions/50360680/can-you-use-python-sockets-for-docker-container-communicationun()
+# pythontic.com/modules/socket/send
+import socket
 
-def run(server_class=HTTPServer, handler_class=SimpleHTTPRequestHandler):
-    """Entrypoint for python server"""
-    server_address = ("0.0.0.0", 8000)
-    httpd = server_class(server_address, handler_class)
-    print("launching server ...")
-    httpd.serve_forever()
+def receive():
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind(("",4000))
+    s.listen(2)
 
-if __name__ == "__main__":
-    run()
+    while(True)
+        conn, addr = s.accept()
+        print("accepted from %s:%s"(addr[0],addr[1]))
+        print(bytes.decode(conn.recv(1024)))
+        conn.send("Hello Client.".encode())
+
