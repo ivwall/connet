@@ -1,5 +1,4 @@
 -----------
-
    blog.oddbit.com/post/2018-03-12-using-docker-macvlan-networks
    mxtoolbox.com/SubnetCalculator.aspx
    Input/CIDR :  10.10.89.0/25
@@ -18,4 +17,10 @@
   431  sudo ip link add mac0 link eno1 type macvlan mode bridge
   434  sudo ip addr add 10.10.89.0/25 dev mac0
   443  sudo ip link set dev mac0 up
- 
+
+--------------
+    
+  collabnix.com/2-minutes-to-docker-macvlan-networking-a-beginners-guide/
+
+  sudo docker network create -d macvlan --subnet=10.10.89.0/25 --gateway=10.10.89.1 -o parent=eno1 pub_net
+  sudo docker run --net=pub_net --ip=10.10.89.124 -itd alpine /bin/sh
